@@ -15,9 +15,12 @@ import (
 func main() {
 	f := flag.CommandLine
 	f.Usage = func() {
-		fmt.Fprintf(f.Output(),
+		fmt.Fprintf(f.Output(), "A command applying Go template leveraging the Sprig package\n\n"+
 			"Usage:\n  sprig [-format <format>] [-file <templateFile>] <input>\n\nOptions:\n")
 		f.PrintDefaults()
+		fmt.Fprintln(f.Output(), "\nExamples:\n"+
+			"  echo \"ts {{div now.UnixNano 1e6}}# Hi random Gopher {{uuidv4}} 👋.\" | sprig\n\n"+
+			"See https://masterminds.github.io/sprig/ for more information about the available template functions")
 	}
 	format := f.String("format", "text", "The template format (text|html) to use.")
 	tmplFile := f.String("file", "", "A go template file to use as an alternative to stdin.")
